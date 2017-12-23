@@ -17,6 +17,15 @@
 			<result name="toUpdateUserInfo" type="redirectAction">userAction_toUpdateUserInfo</result>
 			<!-- 转向到修改用户详细信息页面 -->
 			<result name="updateUserInfo">/pages/user/userInfo.jsp?userInfo=${userInfo}</result>
+			<!-- 转向到主页 -->
+			<result name="main">/pages/mall/mallMain.jsp</result>
+		</action>
+
+		<!-- 商品类型Action -->
+		<action name="productTypeAction_*" method="{1}" class="productTypeAction">
+			<result name="main" type="json">
+				<param name="includeProperties">pageBean.*</param>
+			</result>
 		</action>
 	</package>
 </struts>

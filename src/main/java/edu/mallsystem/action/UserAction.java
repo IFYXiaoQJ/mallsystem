@@ -57,6 +57,18 @@ public class UserAction extends ActionSupport {
         return "input";
     }
 
+    //4,处理用户登录的请求
+    public String doLogin(){
+        if(user!=null){
+            user = userService.doLogin(user);
+            if(user==null){
+                return "loginInput";
+            }
+            ActionContext.getContext().getSession().put("loginUser",user);
+        }
+        return "main";
+    }
+
     public User getUser() {
         return user;
     }
