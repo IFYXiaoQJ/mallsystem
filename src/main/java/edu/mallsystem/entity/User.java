@@ -21,13 +21,13 @@ public class User implements Serializable {
     @Column(name = "user_password",nullable = false)
     private String password;    //密码
     @Column(name = "user_integral")
-    private double integral;    //积分
+    private double integral = 0;    //积分
     @Column(name = "user_money")
-    private double money;       //钱包
+    private double money = 0;       //钱包
     @Column(name = "user_privilege")
     private int privilege = 0;  //权限 0:普通用户 1:超级管理员
     @Column(name = "user_createtime",nullable = false)
-    private Date createtime;    //创建时间
+    private Date createtime = new Date();    //创建时间
     @Column(name = "user_status")
     private int status = 1;     //状态 0:注销 1:启用
 

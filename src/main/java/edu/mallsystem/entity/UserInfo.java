@@ -1,5 +1,7 @@
 package edu.mallsystem.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -11,7 +13,7 @@ import javax.persistence.*;
 public class UserInfo {
 
     @Column(name = "userinfo_no")
-    private int no;             //编号
+    private String no;
     @Column(name = "userinfo_realname")
     private String realname;    //真实姓名
     @Column(name = "userinfo_sex")
@@ -35,7 +37,7 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(int no, String realname, int sex, int age, String idcard, String address, String postAddress, String tel1, String tel2) {
+    public UserInfo(String no, String realname, int sex, int age, String idcard, String address, String postAddress, String tel1, String tel2) {
         this.no = no;
         this.realname = realname;
         this.sex = sex;
@@ -48,12 +50,13 @@ public class UserInfo {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getNo() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid",strategy = "uuid")
+    public String getNo() {
         return no;
     }
 
-    public void setNo(int no) {
+    public void setNo(String no) {
         this.no = no;
     }
 

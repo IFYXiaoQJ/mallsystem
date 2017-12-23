@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<!-- 设置系统参数 -->
+	<constant name="struts.devMode" value="true"/>
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.action.extension" value="action,do,,"/>
+	
+	<!-- 设置Action -->
+	<package name="mallsystem" extends="json-default">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<!-- 用户Action -->
+		<action name="userAction_*" method="{1}" class="userAction">
+			<!-- 注册用户,重定向到用户详细信息页面 -->
+			<result name="toUpdateUserInfo" type="redirectAction">userAction_toUpdateUserInfo</result>
+			<!-- 转向到修改用户详细信息页面 -->
+			<result name="updateUserInfo">/pages/user/userInfo.jsp?userInfo=${userInfo}</result>
+		</action>
+	</package>
+</struts>
