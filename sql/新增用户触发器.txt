@@ -1,0 +1,8 @@
+/*新增用户触发器,新增用户触发一条用户详细信息*/
+CREATE TRIGGER trigger_user_insert
+AFTER
+INSERT ON mallsystem_user
+FOR EACH ROW
+BEGIN
+	INSERT INTO mallsystem_userinfo VALUES(UUID(),'',0,'','','',1,'','',new.no);
+END;
