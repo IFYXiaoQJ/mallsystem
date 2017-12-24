@@ -23,9 +23,14 @@
 
 		<!-- 商品类型Action -->
 		<action name="productTypeAction_*" method="{1}" class="productTypeAction">
+			<!-- 异步查询数据 -->
 			<result name="main" type="json">
 				<param name="includeProperties">pageBean.*</param>
 			</result>
+			<!-- 转向,去到更新页面 -->
+			<result name="toUpdateProductType">/pages/productType/updateProductType.jsp</result>
+			<!-- 删除商品类型,重定向到列表页面 -->
+			<result name="deleteProductType" type="redirect">/pages/productType/productTypeMain.jsp</result>
 		</action>
 	</package>
 </struts>

@@ -14,14 +14,16 @@
 </head>
 <body>
     <h2>商品类型列表</h2>
+    <a href="${pageContext.request.contextPath}/pages/mall/mallMain.jsp">返回</a>
     <form id="frm">
         类型名称:<input type="text" name="querys"/>&nbsp;
         时间:<input type="date" name="querys"/>-<input type="date" name="querys"/>
-            <input type="button" value="模糊查询"/>
+            <input type="button" value="模糊查询" onclick="loadData();"/>
+            <input type="button" value="批量删除" onclick="deletes()"/>
     </form>
     <table id="tab" border="1" width="600px">
         <tr>
-            <td>选择</td>
+            <td><input type='checkbox' onclick='selected();'/>全/反选</td>
             <td>序号</td>
             <td>类型</td>
             <td>创建时间</td>
@@ -71,7 +73,10 @@
                         opt += "<td>"+((cpage-1)*showNum+(i+1))+"</td>";
                         opt += "<td>"+v.name+"</td>";
                         opt += "<td>"+v.createtime.substring(0,10)+"</td>";
-                        opt += "<td>管理</td>";
+                        opt += "<td>";
+                        opt += "<a href='productTypeAction_toUpdateProductType?productType.no="+v.no+"'>更新</a>&nbsp;|&nbsp;";
+                        opt += "<a href='productTypeAction_doDeleteProductType?productType.no="+v.no+"'>删除</a>";
+                        opt += "</td>";
                         opt += "</tr>";
 
                     $("#tab").append(opt);
@@ -79,8 +84,7 @@
 
                 //分页条
                 var opt = "<tr>";
-                    opt += "<td><input type='checkbox' onclick='selected();'/>全/反选</td>";
-                    opt += "<td colspan='4' style='text-align:center;'>";
+                    opt += "<td colspan='5' style='text-align:center;'>";
                     opt += "共"+allNum+"条数据,"+data.pageBean.cpage+"/"+allPage+"页&nbsp;";
                     opt += "<a href='javascript:loadData(1);'>首页</a>&nbsp;";
                     opt += "<a href='javascript:loadData("+upPage+");'>上一页</a>&nbsp;";
@@ -98,5 +102,22 @@
         },"json");
     }
 
+    //处理异步删除
+    function deletes(){
+        var selects = $(":checkbox").serialize();
+        location.href = "productTypeAction_doDeleteProductTypeList?"+selects;
+    }
+
+/*    //获取选中的复选框
+    function getSelectsBox(){
+        var selects = document.getElementsByName("selects");
+        var deletes = new Array();
+        for(var i=0; i<selects.length; i++){
+            if(selects[i].checked==true){
+                deletes[i] = selects[i];
+            }
+        }
+        return deletes;
+    }*/
 
 </script>

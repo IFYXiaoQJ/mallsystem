@@ -24,6 +24,7 @@ public class ProductTypeAction extends ActionSupport {
     private ProductType productType;
     private PageBean pageBean;
     private String[] querys;
+    private String[] selects;
     private int msg;
 
     //声明服务层接口
@@ -37,7 +38,7 @@ public class ProductTypeAction extends ActionSupport {
         if(productType!=null){
             if(productTypeService.saveProductType(productType)){
                 out.println("<script>alert('新增商品类型成功!');history.back();location.reload();</script>");
-            }else {
+            }else{
                 out.println("<script>alert('新增商品类型失败!');history.back();location.reload();</script>");
             }
         }
@@ -50,6 +51,53 @@ public class ProductTypeAction extends ActionSupport {
             pageBean = productTypeService.findProductTypeList(pageBean,querys);
         }
         return "main";
+    }
+
+    //3,处理根据id查询商品类型,去到更新页面的请求
+    public String toUpdateProductType(){
+        if(productType!=null){
+            productType = productTypeService.getProductTypeById(productType);
+        }
+        return "toUpdateProductType";
+    }
+
+    //4,处理更新商品类型的请求
+    public void doUpdateProductType() throws IOException {
+        HttpServletResponse response = ServletActionContext.getResponse();
+        PrintWriter out = response.getWriter();
+        if(productType!=null){
+            if(productTypeService.updateProductType(productType)){
+                out.println("<script>alert('更新商品类型成功!');history.back();location.reload();</script>");
+            }else{
+                out.println("<script>alert('更新商品类型失败!');history.back();location.reload();</script>");
+            }
+        }
+        out.close();
+    }
+
+    //5,处理删除商品类型的请求
+    public String doDeleteProductType(){
+        if(productType!=null){
+            if(productTypeService.deleteProductType(productType)){
+                msg = 1;
+            }else{
+                msg = -1;
+            }
+        }
+        return "deleteProductType";
+    }
+
+    //6,处理批量删除商品类型的请求
+    public String doDeleteProductTypeList(){
+        if(selects!=null&&selects.length>0){
+            if(productTypeService.deleteProductType(selects)){
+                msg = 1;
+                System.out.println("ok...");
+            }else{
+                msg = -1;
+            }
+        }
+        return "deleteProductType";
     }
 
     public ProductType getProductType() {
@@ -82,6 +130,14 @@ public class ProductTypeAction extends ActionSupport {
 
     public void setMsg(int msg) {
         this.msg = msg;
+    }
+
+    public String[] getSelects() {
+        return selects;
+    }
+
+    public void setSelects(String[] selects) {
+        this.selects = selects;
     }
 
     public void setProductTypeService(IProductTypeService productTypeService) {

@@ -13,6 +13,8 @@
 </head>
 <body>
     <h2>新增商品类型</h2>
+    <a href="${pageContext.request.contextPath}/pages/mall/mallMain.jsp">返回</a>
+    <a href="${pageContext.request.contextPath}/pages/productType/productTypeMain.jsp">商品类型列表</a>
     <s:form action="productTypeAction_doSaveProductType" method="post">
         <table>
             <tr>

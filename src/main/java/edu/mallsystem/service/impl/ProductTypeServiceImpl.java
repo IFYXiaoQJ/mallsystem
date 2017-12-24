@@ -100,7 +100,25 @@ public class ProductTypeServiceImpl implements IProductTypeService {
      */
     @Override
     public ProductType getProductTypeById(ProductType productType) {
-        return null;
+        return baseDao.getObjById(ProductType.class,productType.getNo());
+    }
+
+    /**
+     * 批量删除
+     * @param selects
+     * @return
+     */
+    @Override
+    public boolean deleteProductType(String[] selects) {
+        for(int i=0; i<selects.length; i++){
+            ProductType productType = new ProductType();
+            System.out.println(selects[i]);
+            productType.setNo(selects[i]);
+            if(!baseDao.deleteObj(productType)){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void setBaseDao(IBaseDao baseDao) {

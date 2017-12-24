@@ -23,4 +23,6 @@ public interface IProductTypeService {
 
     ProductType getProductTypeById(ProductType productType);
 
+    boolean deleteProductType(String[] selects);
+
 }
