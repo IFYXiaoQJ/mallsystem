@@ -32,5 +32,10 @@
 			<!-- 删除商品类型,重定向到列表页面 -->
 			<result name="deleteProductType" type="redirect">/pages/productType/productTypeMain.jsp</result>
 		</action>
+
+		<!-- 商品Action -->
+		<action name="productAction_*" method="{1}" class="productAction">
+			<result name="saveProduct">/pages/product/saveProduct.jsp</result>
+		</action>
 	</package>
 </struts>

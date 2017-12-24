@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
 
         //获取访问路径
         requestPath = req.getServletPath();
-        System.out.println(requestPath);
+
         //如果是不用过滤的路径
         if(allowString.indexOf(requestPath)!=-1){
             //放行

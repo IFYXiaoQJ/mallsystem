@@ -18,5 +18,8 @@
     <a href="${pageContext.request.contextPath}/pages/productType/saveProductType.jsp">新增商品类型</a><br/>
     <a href="${pageContext.request.contextPath}/pages/productType/productTypeMain.jsp">商品类型列表</a>
     <hr/>
+    <h3>商品管理</h3>
+    <a href="productAction_toSaveProduct">新增商品</a><br/>
+    <hr/>
 </body>
 </html>

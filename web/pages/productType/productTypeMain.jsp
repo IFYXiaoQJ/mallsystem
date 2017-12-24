@@ -108,16 +108,4 @@
         location.href = "productTypeAction_doDeleteProductTypeList?"+selects;
     }
 
-/*    //获取选中的复选框
-    function getSelectsBox(){
-        var selects = document.getElementsByName("selects");
-        var deletes = new Array();
-        for(var i=0; i<selects.length; i++){
-            if(selects[i].checked==true){
-                deletes[i] = selects[i];
-            }
-        }
-        return deletes;
-    }*/
-
 </script>
