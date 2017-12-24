@@ -5,6 +5,7 @@ import edu.mallsystem.bean.PageBean;
 import edu.mallsystem.entity.Product;
 import edu.mallsystem.service.IProductService;
 import edu.mallsystem.service.IProductTypeService;
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -43,18 +44,33 @@ public class ProductAction extends ActionSupport {
     }
 
     //2,处理新增商品的请求
-    public void doSaveProduct(){
+    public String doSaveProduct(){
         if(product!=null){
             uploadImg();
+            if(productService.saveProduct(product)){
+                msg = 1;
+            }else{
+                msg = -1;
+            }
         }
-       // return "";
+        return "";
     }
 
     //执行商品图片上传
     private void uploadImg(){
         if(productImg!=null&&productImgFileName!=null){
+            //获取保存路径
             String path = ServletActionContext.getServletContext().getRealPath("/upload/product/productImg");
             System.out.println("path: "+path);
+            //获取文件要上传的路径
+            String filePath = path+"/"+productImgFileName;
+            try {
+                //执行上传
+                FileUtils.copyFile(productImg,new File(filePath));
+                product.setImg("upload/product/productImg/"+productImgFileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
