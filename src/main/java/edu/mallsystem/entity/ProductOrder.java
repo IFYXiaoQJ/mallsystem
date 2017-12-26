@@ -1,5 +1,6 @@
 package edu.mallsystem.entity;
 
+import edu.mallsystem.util.DateSequenceCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,11 +17,17 @@ public class ProductOrder {
     @Column(name = "productorder_no")
     private String no;//编号
     @Column(name = "productorder_ordernum",unique = true,nullable = false)
-    private String ordernum;//单号
+    private String ordernum = DateSequenceCode.getTimeSequence();//单号
     @Column(name = "productorder_price")
     private double price;//总价
     @Column(name = "productorder_total")
     private int total;//数量
+    @Column(name = "productorder_shippingAddress",nullable = false)
+    private String shippingAddress;//收货地址
+    @Column(name = "productorder_name",nullable = false)
+    private String name;//姓名
+    @Column(name = "productorder_tel",nullable = false)
+    private String tel;//联系电话
     @Column(name = "productorder_createtime")
     private Date createtime = new Date();//创建时间
     @Column(name = "productorder_status")
@@ -28,15 +35,20 @@ public class ProductOrder {
 
     //多对一 商品
     private Product product;
+    //多对一 用户
+    private User user;
 
     public ProductOrder() {
     }
 
-    public ProductOrder(String no, String ordernum, double price, int total, Date createtime, int status) {
+    public ProductOrder(String no, String ordernum, double price, int total, String shippingAddress, String name, String tel, Date createtime, int status) {
         this.no = no;
         this.ordernum = ordernum;
         this.price = price;
         this.total = total;
+        this.shippingAddress = shippingAddress;
+        this.name = name;
+        this.tel = tel;
         this.createtime = createtime;
         this.status = status;
     }
@@ -101,5 +113,39 @@ public class ProductOrder {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "user_no")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 }

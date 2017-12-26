@@ -13,6 +13,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery1.9/jquery-1.9.min.js"></script>
 </head>
 <body>
+<%@include file="/pages/user/userBaseInfo.jsp"%>
     <h2>商品主页</h2>
     <a href="${pageContext.request.contextPath}/pages/mall/mallMain.jsp">返回</a>
     <s:form id="frm" action="" method="post">

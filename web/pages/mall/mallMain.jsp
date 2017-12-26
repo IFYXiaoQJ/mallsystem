@@ -12,6 +12,7 @@
     <title>主页</title>
 </head>
 <body>
+<%@include file="/pages/user/userBaseInfo.jsp"%>
     <h2>商城主页</h2>
     <hr/>
     <h3>商品类型管理</h3>

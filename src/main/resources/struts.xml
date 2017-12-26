@@ -48,7 +48,16 @@
 
 		<!-- 购物车Action -->
 		<action name="shoppingCarAction_*" method="{1}" class="shoppingCarAction">
-			<result name="saveShoppingCar"></result>
+			<result name="saveShoppingCar" type="json">
+				<param name="includeProperties">msg.*</param>
+			</result>
+			<result name="main">/pages/shoppingCar/shoppingCarMain.jsp</result>
+			<result name="toFindShoppingCarForPage" type="redirectAction">shoppingCarAction_doFindShoppingCarForPage?pageBean.cpage=1</result>
+		</action>
+
+		<!-- 商品订单Action -->
+		<action name="productOrderAction" method="{1}" class="productOrderAction">
+			<result name=""></result>
 		</action>
 	</package>
 </struts>

@@ -13,9 +13,11 @@
     <script src="${pageContext.request.contextPath}/js/jquery1.9/jquery-1.9.min.js"></script>
 </head>
 <body>
+<%@include file="/pages/user/userBaseInfo.jsp"%>
     <h2>商品信息</h2>
     <s:form id="frm">
         <s:hidden name="product.no" value="%{product.no}"/>
+        <s:hidden name="product.price" value="%{product.price}"/>
         <img width="200px" height="200px" src="${pageContext.request.contextPath}/${product.img}" alt=""><br/>
         商品名称:<s:textfield name="product.name" value="%{product.name}" disabled="true"/><br/>
         剩余数量:<s:textfield name="product.total" value="%{product.total}" disabled="true"/><br/>
@@ -61,9 +63,12 @@
     function addShoppingCar(){
         var url = "shoppingCarAction_doSaveShoppingCar";
         var params = $("#frm").serialize();
-        alert(params);
         $.post(url,params,function(data){
-
+            if(data.msg==1){
+                alert("加入购物车成功!");
+            }else{
+                alert("加入购物车失败!");
+            }
         });
     }
 
