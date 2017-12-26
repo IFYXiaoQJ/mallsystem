@@ -21,7 +21,7 @@ public interface IProductService {
 
     List findProductList();
 
-    List findProductList(PageBean pageBean,String[] querys);
+    PageBean findProductList(PageBean pageBean,String[] querys);
 
     Product getProductById(Product product);
 

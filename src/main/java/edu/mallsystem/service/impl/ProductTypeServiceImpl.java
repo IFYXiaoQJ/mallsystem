@@ -110,8 +110,9 @@ public class ProductTypeServiceImpl implements IProductTypeService {
      */
     @Override
     public boolean deleteProductType(String[] selects) {
+        ProductType productType = null;
         for(int i=0; i<selects.length; i++){
-            ProductType productType = new ProductType();
+            productType = new ProductType();
             productType.setNo(selects[i]);
             if(!baseDao.deleteObj(productType)){
                 return false;

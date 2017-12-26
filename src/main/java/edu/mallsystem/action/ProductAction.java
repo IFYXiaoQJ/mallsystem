@@ -5,6 +5,7 @@ import edu.mallsystem.bean.PageBean;
 import edu.mallsystem.entity.Product;
 import edu.mallsystem.service.IProductService;
 import edu.mallsystem.service.IProductTypeService;
+import edu.mallsystem.util.DateSequenceCode;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
@@ -49,11 +50,27 @@ public class ProductAction extends ActionSupport {
             uploadImg();
             if(productService.saveProduct(product)){
                 msg = 1;
-            }else{
+            }/*else{
                 msg = -1;
-            }
+            }*/
         }
-        return "";
+        return "toSaveProduct";
+    }
+
+    //3,处理分页带条件查询的请求
+    public String doFindProductListForPage(){
+        if(pageBean!=null){
+            pageBean = productService.findProductList(pageBean,querys);
+        }
+        return "main";
+    }
+
+    //4,处理去到购买商品页面的请求
+    public String toBuyProduct(){
+        if(product!=null){
+            product = productService.getProductById(product);
+        }
+        return "buyProduct";
     }
 
     //执行商品图片上传
@@ -61,13 +78,14 @@ public class ProductAction extends ActionSupport {
         if(productImg!=null&&productImgFileName!=null){
             //获取保存路径
             String path = ServletActionContext.getServletContext().getRealPath("/upload/product/productImg");
-            System.out.println("path: "+path);
+            //重新定义文件名
+            String fileName = DateSequenceCode.getTimeSequence()+productImgFileName;
             //获取文件要上传的路径
-            String filePath = path+"/"+productImgFileName;
+            String filePath = path+"/"+fileName;
             try {
                 //执行上传
                 FileUtils.copyFile(productImg,new File(filePath));
-                product.setImg("upload/product/productImg/"+productImgFileName);
+                product.setImg("upload/product/productImg/"+fileName);
             } catch (Exception e) {
                 e.printStackTrace();
             }

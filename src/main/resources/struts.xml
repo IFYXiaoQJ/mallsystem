@@ -36,6 +36,19 @@
 		<!-- 商品Action -->
 		<action name="productAction_*" method="{1}" class="productAction">
 			<result name="saveProduct">/pages/product/saveProduct.jsp</result>
+			<!-- 重定向Action到新增商品页面 -->
+			<result name="toSaveProduct" type="redirectAction">productAction_toSaveProduct?msg=${msg}</result>
+			<!-- 异步查询数据 -->
+			<result name="main" type="json">
+				<param name="includeProperties">pageBean.*</param>
+			</result>
+			<!-- 转向到购买商品页面 -->
+			<result name="buyProduct">/pages/product/buyProduct.jsp</result>
+		</action>
+
+		<!-- 购物车Action -->
+		<action name="shoppingCarAction_*" method="{1}" class="shoppingCarAction">
+			<result name="saveShoppingCar"></result>
 		</action>
 	</package>
 </struts>

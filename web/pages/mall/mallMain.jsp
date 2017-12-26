@@ -20,6 +20,7 @@
     <hr/>
     <h3>商品管理</h3>
     <a href="productAction_toSaveProduct">新增商品</a><br/>
+    <a href="${pageContext.request.contextPath}/pages/product/productMain.jsp">商品列表</a>
     <hr/>
 </body>
 </html>

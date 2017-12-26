@@ -13,6 +13,8 @@
 </head>
 <body>
     <h2>新增商品</h2>
+    <a href="${pageContext.request.contextPath}/pages/mall/mallMain.jsp">返回</a>
+    <s:if test="#parameters.msg!=null">添加成功</s:if>
     <s:form action="productAction_doSaveProduct" method="post" enctype="multipart/form-data">
         <table>
             <tr>

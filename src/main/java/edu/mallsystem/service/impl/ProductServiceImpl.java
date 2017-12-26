@@ -79,8 +79,14 @@ public class ProductServiceImpl implements IProductService {
      * @return
      */
     @Override
-    public List findProductList(PageBean pageBean, String[] querys) {
-        return null;
+    public PageBean findProductList(PageBean pageBean, String[] querys) {
+        //构建hql语句
+        String hql = "FROM Product WHERE 1=1";
+        hql += " ORDER BY createtime DESC";
+
+        pageBean.setAllNum(baseDao.findObjList(hql).size());
+        pageBean.setResult(baseDao.findObjList(hql,pageBean));
+        return pageBean;
     }
 
     /**
@@ -90,7 +96,7 @@ public class ProductServiceImpl implements IProductService {
      */
     @Override
     public Product getProductById(Product product) {
-        return null;
+        return baseDao.getObjById(Product.class,product.getNo());
     }
 
     public void setBaseDao(IBaseDao baseDao) {
