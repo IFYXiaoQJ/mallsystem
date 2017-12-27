@@ -79,6 +79,14 @@ public class ShoppingCarAction extends ActionSupport {
         return "toFindShoppingCarForPage";
     }
 
+    //5,处理根据id查询购物车信息的请求
+    public String doGetShoppingCarById(){
+        if(shoppingCar!=null){
+            shoppingCar = shoppingCarService.getShoppingCarById(shoppingCar.getNo());
+        }
+        return "getShoppingCarById";
+    }
+
     public ShoppingCar getShoppingCar() {
         return shoppingCar;
     }

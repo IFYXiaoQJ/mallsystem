@@ -42,7 +42,7 @@
                         <td>${opt.price}</td>
                         <td>${opt.createtime}</td>
                         <td>
-                            <a javascript:;>购买</a>&nbsp;|&nbsp;
+                            <a href="javascript:openOrderBox('${opt.no}');">购买</a>&nbsp;|&nbsp;
                             <a href="shoppingCarAction_doDeleteShoppingCar?shoppingCar.no=${opt.no}">删除</a>
                         </td>
                     </tr>
@@ -60,6 +60,47 @@
             </s:if>
         </table>
     </s:form>
+
+    <!-- 模态框 -->
+    <div id="orderBox" style="display: none; margin: 0 auto; position: fixed; top: 20%; left: 20%; background-color: azure; border: 1px solid black;">
+        <div style="height: 40px;">
+            <input type="button" value="关闭" style="float: right;" onclick="closeOrderBox();"/>
+        </div>
+        <table width="600px" border="1">
+            <form id="orderFrm" action="productOrderAction_doSaveProductOrderByShoppingCar" method="post">
+                <input type="hidden" id="productNo" name="ProductOrder.product.no"/>
+            <tr>
+                <td>商品:</td>
+                <td><input id="productName" disabled="disabled"/></td>
+            </tr>
+            <tr>
+                <td>数量:</td>
+                <td><input id="shoppingCarTotal" name="ProductOrder.total" disabled="disabled"/></td>
+            </tr>
+            <tr>
+                <td>收货联系人:</td>
+                <td><input name="ProductOrder.name"/></td>
+            </tr>
+            <tr>
+                <td>联系电话:</td>
+                <td><input name="ProductOrder.tel"/></td>
+            </tr>
+            <tr>
+                <td>收货地址:</td>
+                <td><input name="ProductOrder.shippingAddress"/></td>
+            </tr>
+            <tr>
+                <td>总价:</td>
+                <td><input id="shoppingCarPrice" name="ProductOrder.price" disabled="disabled"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="支付" style="float: right;"/>
+                </td>
+            </tr>
+            </form>
+        </table>
+    </div>
 </body>
 </html>
 <script>
@@ -86,8 +127,23 @@
         location.href = "shoppingCarAction_doDeleteShoppingCarList?"+selects;
     }
 
-    //单个购买
-    function buyProduct(){
-
+    //打开订单盒子
+    function openOrderBox(opt){
+        $("#orderBox").css("display","block");
+        //异步获取信息
+        var url = "shoppingCarAction_doGetShoppingCarById?shoppingCar.no="+opt;
+        $.get(url,null,function (data) {
+            var product = data.shoppingCar.product;
+            $("#productNo").val(product.no);
+            $("#productName").val(product.name);
+            $("#shoppingCarTotal").val(product.total);
+            $("#shoppingCarPrice").val(product.price);
+        },"json");
     }
+
+    //关闭订单盒子
+    function closeOrderBox(){
+        $("#orderBox").css("display","none");
+    }
+
 </script>
